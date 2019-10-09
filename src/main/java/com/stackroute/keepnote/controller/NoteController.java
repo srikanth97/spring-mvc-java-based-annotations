@@ -35,7 +35,6 @@ public class NoteController {
 	 * Retrieve the NoteRepository object from the context.
 	 */
 	ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
-	Note note = context.getBean("note",Note.class);
 	NoteRepository noteRepository = context.getBean("noteRepository",NoteRepository.class);
 	
 	
@@ -44,6 +43,7 @@ public class NoteController {
 	 * for use when building model data for use with views. it should map to the default URL i.e. "/" */
 	@GetMapping("/")
 	public String getAllNotes(ModelMap map){
+		Note note = context.getBean("note",Note.class);
 		map.addAttribute("allnotes",noteRepository.getAllNotes());
 		return "index";
 	}
@@ -59,15 +59,17 @@ public class NoteController {
 	*/
 	@PostMapping("/saveNote")
 	public String addNote(@RequestParam("noteId") String noteId,@RequestParam("noteTitle") String noteTitle,
-						  @RequestParam("noteContent") String noteContent,@RequestParam("noteStatus") String noteStatus){
+						  @RequestParam("noteContent") String noteContent,@RequestParam("noteStatus") String noteStatus,ModelMap map){
+		Note note = context.getBean("note",Note.class);
 		if(noteId != null && noteTitle != null && !noteTitle.equals("") && noteContent != null && !noteContent.equals("")
 				&& noteStatus != null && !noteStatus.equals("")){
 			note.setNoteId(Integer.parseInt(noteId));
 			note.setNoteContent(noteContent);
 			note.setNoteTitle(noteTitle);
 			note.setNoteStatus(noteStatus);
-
 			noteRepository.addNote(note);
+			map.addAttribute("allnotes",noteRepository.getAllNotes());
+
 		}
 		return "index";
 	}
@@ -77,7 +79,9 @@ public class NoteController {
 	 * This handler method should map to the URL "/deleteNote"
 	*/
 	@RequestMapping("/deleteNote")
-	public String deleteNote(ModelMap map){
+	public String deleteNote(ModelMap map,@RequestParam("noteId") int noteId){
+		Note note = context.getBean("note",Note.class);
+		note.setNoteId(noteId);
 		if(noteRepository.deleteNote(note.getNoteId())){
 			map.addAttribute("allnotes",noteRepository.getAllNotes());
 		}

@@ -40,7 +40,7 @@ public class Note {
 	}
 
 	public void setNoteTitle(String string) {
-		this.noteTitle = noteTitle;
+		this.noteTitle = string;
 	}
 
 	public String getNoteContent() {
@@ -56,7 +56,7 @@ public class Note {
 	}
 
 	public void setNoteStatus(String string) {
-		this.noteStatus = noteStatus;
+		this.noteStatus = string;
 	}
 
 	public LocalDateTime getCreatedAt() {
