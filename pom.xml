@@ -20,7 +20,6 @@
 		</dependency>
 
 		<!-- Dependency for Spring Web MVC to be added -->
-
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
@@ -28,8 +27,16 @@
 		</dependency>
 
 		<!-- Dependency for JSTL to be added -->
-		
-		<!-- Dependency for jaxb-api to be added(if using JDK9) -->
+		  <dependency>
+			  <groupId>javax.servlet</groupId>
+			  <artifactId>jstl</artifactId>
+			  <version>1.2</version>
+		  </dependency>
+
+
+
+	  <!-- Dependency for jaxb-api to be added(if using JDK9) -->
+
 
 		<!-- Dependency for jaxb-impl to be added(if using JDK9) -->
 
