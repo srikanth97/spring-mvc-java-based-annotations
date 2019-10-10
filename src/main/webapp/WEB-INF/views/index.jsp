@@ -12,7 +12,7 @@
 <body>
 	<!-- Create a form which will have text boxes for Note ID, title, content and status along with a Send 
 		 button. Handle errors like empty fields -->
-	<form action="/KeepNote-Step1-Boilerplate/saveNote" method="post">
+	<form action="/saveNote" method="post">
 		<div class="form-group">
 			<label for="noteId">Enter NoteId</label>
 			<input type="number" name="noteId" id="noteId">
@@ -50,7 +50,7 @@
 					<th><c:out value="${note.noteContent}"/></th>
 					<th><c:out value="${note.noteStatus}"/></th>
 					<th><c:out value="${note.createdAt}"/></th>
-					<th><form action="/KeepNote-Step1-Boilerplate/deleteNote?noteId=${note.noteId}" method="post"><input type="Submit" value="Delete"></form></th>
+					<th><form action="/deleteNote?noteId=${note.noteId}" method="post"><input type="Submit" value="Delete"></form></th>
 			</tr>
 		</c:forEach>
 	</table>

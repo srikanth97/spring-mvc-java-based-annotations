@@ -3,8 +3,6 @@ package com.stackroute.keepnote.controller;
 
 import com.stackroute.keepnote.model.Note;
 import com.stackroute.keepnote.repository.NoteRepository;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,8 +32,8 @@ public class NoteController {
 	 * Retrieve the Note object from the context.
 	 * Retrieve the NoteRepository object from the context.
 	 */
-	ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
-	NoteRepository noteRepository = context.getBean("noteRepository",NoteRepository.class);
+
+	NoteRepository noteRepository = new NoteRepository();
 	
 	
 	/*Define a handler method to read the existing notes by calling the getAllNotes() method 
@@ -43,7 +41,7 @@ public class NoteController {
 	 * for use when building model data for use with views. it should map to the default URL i.e. "/" */
 	@GetMapping("/")
 	public String getAllNotes(ModelMap map){
-		Note note = context.getBean("note",Note.class);
+		Note note = new Note();
 		map.addAttribute("allnotes",noteRepository.getAllNotes());
 		return "index";
 	}
@@ -60,7 +58,7 @@ public class NoteController {
 	@PostMapping("/saveNote")
 	public String addNote(@RequestParam("noteId") String noteId,@RequestParam("noteTitle") String noteTitle,
 						  @RequestParam("noteContent") String noteContent,@RequestParam("noteStatus") String noteStatus,ModelMap map){
-		Note note = context.getBean("note",Note.class);
+		Note note = new Note();
 		if(noteId != null && noteTitle != null && !noteTitle.equals("") && noteContent != null && !noteContent.equals("")
 				&& noteStatus != null && !noteStatus.equals("")){
 			note.setNoteId(Integer.parseInt(noteId));
@@ -80,7 +78,7 @@ public class NoteController {
 	*/
 	@RequestMapping("/deleteNote")
 	public String deleteNote(ModelMap map,@RequestParam("noteId") int noteId){
-		Note note = context.getBean("note",Note.class);
+		Note note = new Note();
 		note.setNoteId(noteId);
 		if(noteRepository.deleteNote(note.getNoteId())){
 			map.addAttribute("allnotes",noteRepository.getAllNotes());
